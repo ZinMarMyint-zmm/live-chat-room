@@ -8,7 +8,7 @@ let createAccount=async(email,password,displayName)=>{
             throw new Error("Could not create new user")
         }
         res.user.updateProfile({displayName})
-        return res
+        return res;
         }catch(err){
             error.value=err.message;
             

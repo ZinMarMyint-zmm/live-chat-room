@@ -4,22 +4,28 @@
         
         <input type="email" placeholder="email" v-model="email">
         <input type="password" placeholder="password" v-model="password">
+        <div class="error" v-if="error">{{error}}</div>
         <button>Login</button>
     </form>
 </template>
 
 <script>
 import { ref } from '@vue/reactivity'
+import useLogin from '../composables/useLogin'
 export default {
-    setup(){
+    setup(props,context){
         
         let email = ref("");
         let password = ref("");
-        let login=()=>{
-            console.log(email.value,password.value)
+        let {error,signIn}= useLogin()
+        let login=async()=>{
+            let res = await signIn(email.value,password.value)
+            if(res){
+                context.emit("enterChatroom")
+            }
         }
 
-        return {email,password,login}
+        return {email,password,login,error}
     }
 }
 
