@@ -1,11 +1,11 @@
 <template>
   <div class="welcome container">
     <div v-if="showLoginForm">
-      <Login @enterChatroom="enterChatroom"></Login>
+      <Login @enterChatroom="Chatroom"></Login>
       <p>not a member? <span @click="showLoginForm=!showLoginForm">create account?</span></p>
     </div>
     <div v-else>
-      <Signup @enterChatroom="enterChatroom"></Signup>
+      <Signup @enterChatroom="Chatroom"></Signup>
       <p>Already member? <span @click="showLoginForm=!showLoginForm">Login Account?</span></p>
     </div>
   </div>
@@ -23,10 +23,10 @@ export default {
     setup(){
       let showLoginForm = ref(true);
       let router = useRouter();
-      let enterChatroom=()=>{
+      let Chatroom=()=>{
         router.push({name:'chatroom'})
       }
-      return {showLoginForm,enterChatroom};
+      return {showLoginForm,Chatroom};
     }
 
 }
