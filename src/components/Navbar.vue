@@ -9,25 +9,20 @@
 </template>
 
 <script>
+import useLogout from '../composables/useLogout'
 import getUser from '../composables/getUser'
 import { ref } from '@vue/reactivity'
 import {auth} from '../firebase/config'
 export default {
     setup(){
-        let error = ref(null);
-        let {user} = getUser();
         
+        let {user} = getUser();
+        let {error,logoutUser} = useLogout();
         let logout=async()=>{
-            try{
-                await auth.signOut();
-                console.log("user logged out")
-            }catch(err){
-                error.value = err.message;
-                console.log(error.value)
-            }
+            await logoutUser()
         }
         
-        return {logout,user}
+        return {logout,user,error,logoutUser}
     }
 }
 </script>
